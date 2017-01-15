@@ -3,23 +3,23 @@ import FilterLink from '../containers/FilterLink'
 
 const Footer = () => (
   <p>
-    <button className="btn btn-default">
-      <FilterLink filter="SHOW_ALL">
+    <FilterLink filter="SHOW_ALL">
+      <button className="btn btn-primary">
         All
-      </FilterLink>
-    </button>
+      </button>
+    </FilterLink>
     {" "}
-    <button className="btn btn-default">
-      <FilterLink filter="SHOW_ACTIVE">
+    <FilterLink filter="SHOW_ACTIVE">
+      <button className="btn btn-primary">
         Active
-      </FilterLink>
-    </button>
+      </button>
+    </FilterLink>
     {" "}
-    <button className="btn btn-default">
-      <FilterLink filter="SHOW_COMPLETED">
+    <FilterLink filter="SHOW_COMPLETED">
+      <button className="btn btn-primary">
         Completed
-      </FilterLink>
-    </button>
+      </button>
+    </FilterLink>
   </p>
 )
 
