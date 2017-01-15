@@ -1,3 +1,4 @@
+global.jQuery = global.$ = require('jQuery')
 require('electron-reload')(__dirname);
 
 const electron = require('electron')

@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants'
 import { combineReducers } from 'redux'
 import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
 
@@ -10,6 +11,15 @@ const initialState = {
 
 function todos(state = [], action) {
   switch (action.type) {
+    case REHYDRATE:
+      var incoming = action.payload.todos
+      if (incoming) {
+        return [
+          ...state,
+          ...incoming
+        ]
+      }
+      return state
     case ADD_TODO:
       return [
         ...state,

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 const Todo = ({ onClick, completed, text }) => (
-  <li
+  <li className='list-group-item'
     onClick={onClick}
     style={{
       textDecoration: completed ? 'line-through' : 'none'
