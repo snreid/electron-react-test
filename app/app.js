@@ -1,24 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-const $ = require('jQuery')
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import todoApp from './reducers'
+import App from './components/App'
 
-class Search extends React.Component {
-  handleSubmit(){
-  }
+let store = createStore(todoApp)
 
-  render() {
-    return (
-      <form id='new_dvd'>
-        <h1>My First Form!</h1>
-        <label>Name</label>
-        <input id="name" type="name" />
-        <br />
-        <label>Genre</label>
-        <input id="genre" type="genre" />
-        <input type="submit" onClick={this.handleSubmit.bind(this)}/>
-      </form>
-    )
-  }
-}
-
-ReactDOM.render( <Search/>, document.getElementById('content') )
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('content')
+)
