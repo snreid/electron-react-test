@@ -9,7 +9,7 @@ import todoApp from './reducers'
 import App from './components/App'
 
 let store = createStore(todoApp)
-persistStore(store, {storage: nedb({filename: path.join(__dirname, '/db/db.json')})})
+persistStore(store, { storage: nedb({filename: path.join(__dirname, '/db/db.json')}) })
 
 
 render(
