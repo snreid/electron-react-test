@@ -1,6 +1,7 @@
-import { REHYDRATE } from 'redux-persist/constants'
 import { combineReducers } from 'redux'
 import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
+
+import { all_todos, create_todo } from './persist/Todo.js'
 
 const { SHOW_ALL } = VisibilityFilters
 
@@ -11,23 +12,10 @@ const initialState = {
 
 function todos(state = [], action) {
   switch (action.type) {
-    case REHYDRATE:
-      var incoming = action.payload.todos
-      if (incoming) {
-        return [
-          ...state,
-          ...incoming
-        ]
-      }
-      return state
     case ADD_TODO:
       return [
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
+        add_todo(action)
       ]
     case TOGGLE_TODO:
       return state.map((todo, index) => {
@@ -50,6 +38,15 @@ function visibilityFilter(state = SHOW_ALL, action) {
     default:
       return state
 	}
+}
+
+function add_todo(action) {
+  var doc = {
+    id: action.id,
+    text: action.text,
+    completed: false
+  }
+  return create_todo(doc)
 }
 
 const todoApp = combineReducers({
