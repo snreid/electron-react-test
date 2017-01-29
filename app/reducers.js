@@ -19,7 +19,7 @@ function todos(state = [], action) {
       ]
     case TOGGLE_TODO:
       return state.map((todo, index) => {
-        if (index === action.index) {
+        if (todo.id === action.index) {
           return Object.assign({}, todo, {
             completed: !todo.completed
           })
