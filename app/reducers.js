@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
 
-import { all_todos, create_todo } from './persist/Todo.js'
+import { create_todo, destroy_todo } from './persist/Todo.js'
 
 const { SHOW_ALL } = VisibilityFilters
 
@@ -27,8 +27,8 @@ function todos(state = [], action) {
         return todo
       })
     case DELETE_TODO:
-      debugger
-      return state
+      delete_todo(action)
+      return state.filter(todo => todo.id !== action.index)
     default:
       return state
   }
@@ -48,6 +48,10 @@ function add_todo(action) {
     text: action.text,
   }
   return create_todo(doc)
+}
+
+function delete_todo(action){
+  destroy_todo(action.index)
 }
 
 const todoApp = combineReducers({

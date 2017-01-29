@@ -22,6 +22,10 @@ class Todo {
     })
   }
 
+  static destroy(_id) {
+    db.remove({_id: _id})
+  }
+
   persist() {
     db.insert(this.doc(), function(err, newDoc){
       return newDoc
@@ -45,9 +49,13 @@ var create_todo = function(args) {
   return todo
 }
 
+var destroy_todo = function(id) {
+  Todo.destroy(id)
+}
+
 var all_todos = function(callback) {
   Todo.find(callback)
 }
 
-export { create_todo, all_todos }
+export { create_todo, destroy_todo, all_todos }
 
