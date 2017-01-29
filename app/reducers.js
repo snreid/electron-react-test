@@ -42,9 +42,7 @@ function visibilityFilter(state = SHOW_ALL, action) {
 
 function add_todo(action) {
   var doc = {
-    id: action.id,
     text: action.text,
-    completed: false
   }
   return create_todo(doc)
 }

@@ -1,24 +1,25 @@
 var Datastore = require('nedb')
 const path = require('path')
 
-var db = new Datastore({ filename: '../db/todo.json'})
+var db = new Datastore({ filename: 'todo.db' })
 db.loadDatabase()
 
+
+let nextTodoId = 0
 class Todo {
   constructor(args) {
-    this.id = args.id
+    this.id = args._id || (nextTodoId++).toString()
     this.text = args.text
-    this.completed = args.completed
+    this.completed = args.completed || false
   }
 
-  static find() {
-    var todos = []
+  static find(callback) {
     db.find({}, function(err, docs) {
-      docs.map(function(doc){
-        todos.push(new Todo(doc))
+      var todos = docs.map(function(doc){
+        return new Todo(doc)
       })
+      callback(todos)
     })
-    return todos
   }
 
   persist() {
@@ -44,8 +45,8 @@ var create_todo = function(args) {
   return todo
 }
 
-var all_todos = function() {
-  Todo.find()
+var all_todos = function(callback) {
+  Todo.find(callback)
 }
 
 export { create_todo, all_todos }

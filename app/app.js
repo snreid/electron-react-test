@@ -5,12 +5,15 @@ import { createStore } from 'redux'
 const path = require('path')
 import todoApp from './reducers'
 import App from './components/App'
+import { all_todos } from './persist/Todo.js'
 
-let store = createStore(todoApp)
+all_todos((todos) => {
+  let store = createStore(todoApp, { todos: todos})
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('content')
+  )
+})
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('content')
-)
