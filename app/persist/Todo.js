@@ -1,8 +1,7 @@
 var Datastore = require('nedb')
 const path = require('path')
 
-var db = new Datastore({ filename: 'todo.db' })
-db.loadDatabase()
+var db = new Datastore({ filename: 'todo.db', autoload: true })
 
 
 let nextTodoId = 0
@@ -27,8 +26,16 @@ class Todo {
   }
 
   persist() {
-    db.insert(this.doc(), function(err, newDoc){
-      return newDoc
+    var doc = this.doc()
+    return new Promise(function(resolve, reject){
+      db.insert(doc, function(err, todo){
+        if(err){
+          reject(err)
+        }
+        else{
+          resolve(new Todo(todo))
+        }
+      })
     })
   }
 
@@ -45,8 +52,7 @@ class Todo {
 
 var create_todo = function(args) {
   var todo = new Todo(args)
-  todo.persist()
-  return todo
+  return todo.persist()
 }
 
 var destroy_todo = function(id) {

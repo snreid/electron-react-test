@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
+import { ADD_TODO,
+        TOGGLE_TODO,
+        DELETE_TODO,
+        SET_VISIBILITY_FILTER,
+        VisibilityFilters } from './actions'
 
 import { create_todo, destroy_todo } from './persist/Todo.js'
 
@@ -15,7 +19,7 @@ function todos(state = [], action) {
     case ADD_TODO:
       return [
         ...state,
-        add_todo(action)
+        action.todo
       ]
     case TOGGLE_TODO:
       return state.map((todo, index) => {

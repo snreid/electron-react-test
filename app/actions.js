@@ -16,11 +16,21 @@ export const VisibilityFilters = { SHOW_ALL: 'SHOW_ALL', SHOW_COMPLETED: 'SHOW_C
 /*
  * action creators
  */
+import { create_todo, destroy_todo } from './persist/Todo.js'
 
-export function addTodo(text) {
+export function addTodo(todo) {
   return {
     type: ADD_TODO,
-    text
+    todo: todo
+  }
+}
+
+export function addingTodo(text) {
+  return function(dispatch) {
+    var doc = { text: text }
+    return create_todo(doc).then(function(todo){
+      dispatch(addTodo(todo))
+    })
   }
 }
 

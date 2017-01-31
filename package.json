@@ -20,25 +20,25 @@
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-builder": "^11.3.0",
-    "electron-packager": "^8.5.0"
+    "electron-packager": "^8.5.0",
+    "electron-reload": "^1.1.0",
+    "electron-rebuild": "^1.5.7"
   },
   "dependencies": {
     "axios": "^0.15.3",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babelify": "^7.3.0",
-    "camo": "^0.12.3",
     "classnames": "^2.2.5",
     "electron-prebuilt": "^1.4.13",
-    "electron-reload": "^1.1.0",
     "jquery": "^3.1.1",
-    "kerberos": "0.0.22",
     "nedb": "^1.8.0",
     "react": "^15.4.2",
     "react-autocomplete": "^1.4.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
-    "redux-devtools": "^3.3.2"
+    "redux-devtools": "^3.3.2",
+    "redux-thunk": "^2.2.0"
   }
 }
