@@ -12,12 +12,19 @@ class Todo {
     this.completed = args.completed || false
   }
 
-  static find(callback) {
-    db.find({}, function(err, docs) {
-      var todos = docs.map(function(doc){
-        return new Todo(doc)
+  static find() {
+    return new Promise(function(resolve, reject){
+      db.find({}, function(err, docs) {
+        if(err){
+          reject(err)
+        }
+        else{
+          var todos = docs.map(function(doc){
+            return new Todo(doc)
+          })
+          resolve(todos)
+        }
       })
-      callback(todos)
     })
   }
 
@@ -81,8 +88,8 @@ var toggle_todo = function(todo) {
   return new Todo(todo).toggleComplete()
 }
 
-var all_todos = function(callback) {
-  Todo.find(callback)
+var all_todos = function() {
+  return Todo.find()
 }
 
 export { create_todo, toggle_todo, destroy_todo, all_todos }

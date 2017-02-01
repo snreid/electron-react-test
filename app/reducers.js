@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { ADD_TODO,
+        REFRESH_TODOS,
         TOGGLE_TODO,
         DELETE_TODO,
         SET_VISIBILITY_FILTER,
@@ -14,6 +15,8 @@ const initialState = {
 
 function todos(state = [], action) {
   switch (action.type) {
+    case REFRESH_TODOS:
+      return action.todos
     case ADD_TODO:
       return [
         ...state,

@@ -2,6 +2,7 @@
  * action types
  */
 
+export const REFRESH_TODOS = 'REFRESH_TODOS'
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const DELETE_TODO = 'DELETE_TODO'
@@ -16,7 +17,22 @@ export const VisibilityFilters = { SHOW_ALL: 'SHOW_ALL', SHOW_COMPLETED: 'SHOW_C
 /*
  * action creators
  */
-import { create_todo, toggle_todo, destroy_todo } from './persist/Todo.js'
+import { all_todos, create_todo, toggle_todo, destroy_todo } from './persist/Todo.js'
+
+export function refreshTodos(todos){
+  return {
+    type: REFRESH_TODOS,
+    todos: todos
+  }
+}
+
+export function refreshingTodos(){
+  return function(dispatch){
+    return all_todos().then(function(todos){
+      dispatch(refreshTodos(todos))
+    })
+  }
+}
 
 export function addTodo(todo) {
   return {
