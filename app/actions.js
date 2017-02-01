@@ -16,7 +16,7 @@ export const VisibilityFilters = { SHOW_ALL: 'SHOW_ALL', SHOW_COMPLETED: 'SHOW_C
 /*
  * action creators
  */
-import { create_todo, destroy_todo } from './persist/Todo.js'
+import { create_todo, toggle_todo, destroy_todo } from './persist/Todo.js'
 
 export function addTodo(todo) {
   return {
@@ -34,11 +34,20 @@ export function addingTodo(text) {
   }
 }
 
-export function toggleTodo(index) {
-  return { type: TOGGLE_TODO, index }
+export function toggleTodo(todo) {
+  return { type: TOGGLE_TODO, todo: todo}
+}
+
+export function togglingTodo(todo){
+  return function(dispatch) {
+    return toggle_todo(todo).then(function(todo){
+      dispatch(toggleTodo(todo))
+    })
+  }
 }
 
 export function deleteTodo(index) {
+  delete_todo(index)
   return { type: DELETE_TODO, index }
 }
 

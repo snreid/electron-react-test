@@ -5,8 +5,6 @@ import { ADD_TODO,
         SET_VISIBILITY_FILTER,
         VisibilityFilters } from './actions'
 
-import { create_todo, destroy_todo } from './persist/Todo.js'
-
 const { SHOW_ALL } = VisibilityFilters
 
 const initialState = {
@@ -23,15 +21,12 @@ function todos(state = [], action) {
       ]
     case TOGGLE_TODO:
       return state.map((todo, index) => {
-        if (todo.id === action.index) {
-          return Object.assign({}, todo, {
-            completed: !todo.completed
-          })
+        if (todo.id === action.todo.id) {
+          return action.todo
         }
         return todo
       })
     case DELETE_TODO:
-      delete_todo(action)
       return state.filter(todo => todo.id !== action.index)
     default:
       return state
@@ -45,17 +40,6 @@ function visibilityFilter(state = SHOW_ALL, action) {
     default:
       return state
 	}
-}
-
-function add_todo(action) {
-  var doc = {
-    text: action.text,
-  }
-  return create_todo(doc)
-}
-
-function delete_todo(action){
-  destroy_todo(action.index)
 }
 
 const todoApp = combineReducers({

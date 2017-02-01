@@ -7,7 +7,7 @@ var db = new Datastore({ filename: 'todo.db', autoload: true })
 let nextTodoId = 0
 class Todo {
   constructor(args) {
-    this.id = args._id || (nextTodoId++).toString()
+    this.id = args._id || args.id || (nextTodoId++).toString()
     this.text = args.text
     this.completed = args.completed || false
   }
@@ -45,8 +45,26 @@ class Todo {
       text: this.text,
       completed: this.completed
     }
-
     return doc
+  }
+
+  toggleComplete() {
+    this.completed = !this.completed
+    return this.update({ completed: this.completed})
+  }
+
+  update(changes){
+    var todo = this
+    return new Promise(function(resolve, reject){
+      db.update({ _id: todo.id }, { $set: changes }, function(err, numUpdated){
+          if(err){
+            reject(err)
+          }
+          else{
+            resolve(new Todo(todo))
+          }
+      })
+    })
   }
 }
 
@@ -59,9 +77,13 @@ var destroy_todo = function(id) {
   Todo.destroy(id)
 }
 
+var toggle_todo = function(todo) {
+  return new Todo(todo).toggleComplete()
+}
+
 var all_todos = function(callback) {
   Todo.find(callback)
 }
 
-export { create_todo, destroy_todo, all_todos }
+export { create_todo, toggle_todo, destroy_todo, all_todos }
 
