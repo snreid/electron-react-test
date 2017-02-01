@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addingTodo } from '../actions'
+import { addTodo } from '../actions'
 
 let AddTodo = ({ dispatch }) => {
   let input
@@ -14,7 +14,7 @@ let AddTodo = ({ dispatch }) => {
           if (!input.value.trim()) {
             return
           }
-          dispatch(addingTodo(input.value))
+          dispatch(addTodo(input.value))
           input.value = ''
         }}>
           <div className='form-group'>

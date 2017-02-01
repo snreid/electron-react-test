@@ -5,11 +5,11 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 const path = require('path')
 import todoApp from './reducers'
-import { refreshingTodos } from './actions'
+import { refreshTodos } from './actions'
 import App from './components/App'
 
 let store = createStore(todoApp, applyMiddleware(thunk))
-store.dispatch(refreshingTodos())
+store.dispatch(refreshTodos())
 render(
   <Provider store={store}>
     <App />

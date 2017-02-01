@@ -2,10 +2,7 @@
  * action types
  */
 
-export const REFRESH_TODOS = 'REFRESH_TODOS'
-export const ADD_TODO = 'ADD_TODO'
-export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const DELETE_TODO = 'DELETE_TODO'
+export const REFRESHED_TODOS = 'REFRESHED_TODOS'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 
 /*
@@ -19,34 +16,34 @@ export const VisibilityFilters = { SHOW_ALL: 'SHOW_ALL', SHOW_COMPLETED: 'SHOW_C
  */
 import { all_todos, create_todo, toggle_todo, destroy_todo } from './persist/Todo.js'
 
-export function refreshTodos(todos){
+export function refreshedTodos(todos){
   return {
-    type: REFRESH_TODOS,
+    type: REFRESHED_TODOS,
     todos: todos
   }
 }
 
-export function refreshingTodos(){
+export function refreshTodos(){
   return function(dispatch){
     return all_todos().then(function(todos){
-      dispatch(refreshTodos(todos))
+      dispatch(refreshedTodos(todos))
     })
   }
 }
 
-export function addingTodo(text) {
+export function addTodo(text) {
   return function(dispatch) {
     var doc = { text: text }
     return create_todo(doc).then(function(todo){
-      dispatch(refreshingTodos())
+      dispatch(refreshTodos())
     })
   }
 }
 
-export function togglingTodo(todo){
+export function toggleTodo(todo){
   return function(dispatch) {
     return toggle_todo(todo).then(function(todo){
-      dispatch(refreshingTodos())
+      dispatch(refreshTodos())
     })
   }
 }
@@ -54,7 +51,7 @@ export function togglingTodo(todo){
 export function deleteTodo(index) {
   return function(dispatch){
     return destroy_todo(index).then(function(numDeleted){
-      dispatch(refreshingTodos())
+      dispatch(refreshTodos())
     })
   }
 }

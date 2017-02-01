@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { REFRESH_TODOS,
+import { REFRESHED_TODOS,
          SET_VISIBILITY_FILTER,
          VisibilityFilters } from './actions'
 
@@ -12,7 +12,7 @@ const initialState = {
 
 function todos(state = [], action) {
   switch (action.type) {
-    case REFRESH_TODOS:
+    case REFRESHED_TODOS:
       return action.todos
     default:
       return state
