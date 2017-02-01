@@ -47,7 +47,7 @@ export function togglingTodo(todo){
 }
 
 export function deleteTodo(index) {
-  delete_todo(index)
+  destroy_todo(index)
   return { type: DELETE_TODO, index }
 }
 
