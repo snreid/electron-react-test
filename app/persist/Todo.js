@@ -29,7 +29,16 @@ class Todo {
   }
 
   static destroy(_id) {
-    db.remove({_id: _id})
+    return new Promise(function(resolve, reject){
+      db.remove({_id: _id}, function(err, numDeleted){
+        if(err){
+          reject(err)
+        }
+        else{
+          resolve(numDeleted)
+        }
+      })
+    })
   }
 
   persist() {
@@ -81,7 +90,7 @@ var create_todo = function(args) {
 }
 
 var destroy_todo = function(id) {
-  Todo.destroy(id)
+  return Todo.destroy(id)
 }
 
 var toggle_todo = function(todo) {
